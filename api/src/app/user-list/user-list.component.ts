@@ -83,6 +83,17 @@ export class UserListComponent implements OnInit{
     })
   }
 
+  deleteUserData(id:number)
+  {
+    const deletedData =  this.http.delete("https://jsonplaceholder.typicode.com/users/"+id);
+
+    deletedData.subscribe(()=>{
+      this.user = this.user.filter(user=>{
+        return user.id !== id;
+      })
+    })
+  }
+
 }
 
 class User{

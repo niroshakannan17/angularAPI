@@ -60,5 +60,6 @@
 <ul>
     <li *ngFor="let item of user">{{item.name}} - {{item.email}} 
         <button (click)="editUserData(item.id)"> Edit</button>
+        <button (click)="deleteUserData(item.id)"> Delete</button>
     </li>
 </ul>
