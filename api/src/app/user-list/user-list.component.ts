@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // class file
 
 @Component({
   selector: 'app-user-list',
