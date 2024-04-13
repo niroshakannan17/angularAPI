@@ -11,6 +11,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class UserListComponent implements OnInit{
 
   user:User[]=[];
+  isEdit:boolean = false;
+  editId = 0;
 
   constructor(private http:HttpClient){
 
@@ -46,9 +48,38 @@ export class UserListComponent implements OnInit{
   }
 
   save(){
-    console.log(this.userAddform)
+   
     this.addUserData().subscribe((response)=>{
       this.user.push(response)
+    })
+  }
+
+  editUserData(id:number){
+    this.isEdit = true;
+    this.user.find((response)=>{
+      if(id==response.id){
+        this.userAddform.controls.username.setValue(response.name);
+        this.userAddform.controls.useremail.setValue(response.email);
+        this.editId = response.id;
+        
+      }
+    })
+
+  }
+
+  update(){
+    const editUser = this.http.put<User>("https://jsonplaceholder.typicode.com/users/"+this.editId,{
+      name : this.userAddform.controls.username.value,
+      email :  this.userAddform.controls.useremail.value
+    })
+
+    editUser.subscribe((resp)=>{
+      this.user.map((users)=>{
+        if(users.id==resp.id){
+          users.name = resp.name;
+          users.email = resp.email;
+        }
+      })
     })
   }
 
@@ -57,4 +88,5 @@ export class UserListComponent implements OnInit{
 class User{
   name!:string;
   email!:string;
+  id!:number;
 }

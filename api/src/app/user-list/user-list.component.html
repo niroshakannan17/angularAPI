@@ -1,31 +1,64 @@
 
+<div *ngIf="isEdit;then editUserForm else addUserForm ">
 
-<div class="container">
-    <h4> Add User</h4>
-    <form [formGroup]="userAddform" action="" method="post" (submit)="save()">
-        <div class="row">
-            <div class="col-md-6">
-                <label>Name : </label>&nbsp;
-                <input type="text" name="username" id="username" formControlName="username">
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <label>Email : </label>&nbsp;
-                <input type="text" name="useremail" id="useremail" formControlName="useremail">
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary">submit</button>
-            </div>
-        </div>
-    </form>
 </div>
+<ng-template #addUserForm>
+    <div class="container" >
+        <h4> Add User</h4>
+        <form [formGroup]="userAddform" action="" method="post" (submit)="save()">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Name : </label>&nbsp;
+                    <input type="text" name="username" id="username" formControlName="username">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Email : </label>&nbsp;
+                    <input type="text" name="useremail" id="useremail" formControlName="useremail">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #editUserForm>
+    <div class="container" >
+        <h4> Edit User</h4>
+        <form [formGroup]="userAddform" action="" method="post" (submit)="update()">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Name : </label>&nbsp;
+                    <input type="text" name="username" id="username" formControlName="username">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Email : </label>&nbsp;
+                    <input type="text" name="useremail" id="useremail" formControlName="useremail">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
 
 <h4>User list</h4>
 <ul>
-    <li *ngFor="let item of user">{{item.name}} - {{item.email}}</li>
+    <li *ngFor="let item of user">{{item.name}} - {{item.email}} 
+        <button (click)="editUserData(item.id)"> Edit</button>
+    </li>
 </ul>
